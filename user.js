@@ -1,13 +1,25 @@
 var auth = require('./auth');
 
-function User( connection ){
-	this.id    = 0;
-	this.email = null;
-	this.key   = null;
-	this.salt  = null;
-	this.token = null;
+function User( connection, data ){
+	this._init( data );
 	this._connection = connection;
 }
+
+User.prototype._init = function( data ){
+	if ( ! data ){
+		this.id    = 0;
+		this.email = null;
+		this.key   = null;
+		this.salt  = null;
+		this.token = null;
+	} else {
+		this.id    = data.id;
+		this.email = data.email;
+		this.key   = data.key;
+		this.salt  = data.salt;
+		this.token = data.token;
+	}
+};
 
 User.prototype._getByField = function( field, value, callback ){
 	var self = this,
@@ -22,12 +34,7 @@ User.prototype._getByField = function( field, value, callback ){
 			return;
 		}
 
-		self.id    = rows[0].id;
-		self.email = rows[0].email;
-		self.key   = rows[0].key;
-		self.salt  = rows[0].salt;
-		self.token = rows[0].token;
-
+		this._init( rows[0] );
 		callback( null );
 	});
 };
@@ -50,7 +57,7 @@ User.prototype.update = function( callback ){
 		return;
 	}
 
-	var params = [ { email: this.email, key: this.key, salt: this.salt, token: this.token }, { id: this.id } ];
+	var params = [ this.toJson(), { id: this.id } ];
 	this._connection.query("UPDATE users SET ? WHERE ?", params, function( err, response ){
 		if ( err ){ callback( err ); return; }
 		callback( null );
@@ -58,7 +65,11 @@ User.prototype.update = function( callback ){
 };
 
 User.prototype.toString = function(){
-	return JSON.stringify({ id: this.id, email: this.email, key: this.key, salt: this.salt, token: this.token });
+	return JSON.stringify( this.toJson() );
+};
+
+User.prototype.toJson = function(){
+	return { email: this.email, key: this.key, salt: this.salt, token: this.token };
 };
 
 User.prototype.logout = function( callback ){
