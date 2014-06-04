@@ -34,7 +34,7 @@ User.prototype._getByField = function( field, value, callback ){
 			return;
 		}
 
-		this._init( rows[0] );
+		self._init( rows[0] );
 		callback( null );
 	});
 };
