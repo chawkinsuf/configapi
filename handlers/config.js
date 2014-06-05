@@ -35,7 +35,7 @@ function GET( request, response, data, callback ){
 		}
 
 		// Check for search parameters and validate the values
-		var order = null;
+		var order = [ 'id', 'asc' ];
 		if ( config.checkSortField( data.order ) ){
 			order = [ data.order, config.checkSortDirection( data.direction ) ? data.direction : 'asc' ];
 		}
