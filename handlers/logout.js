@@ -17,7 +17,7 @@ function GET( request, response, data, callback ){
 		User.logout(function(){
 			if ( err ){ callback( new Error('Logout failed'), err ); return; }
 
-			request.cookie.set( 'authtoken', '', response )
+			request.cookie.set( 'authtoken', '', response );
 			callback( null, null, {} );
 		});
 	});

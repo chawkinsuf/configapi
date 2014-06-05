@@ -13,7 +13,7 @@ function POST( request, response, data, callback ){
 	User.login( data.email, data.password, function( err ){
 		if ( err ){ callback( new Error('Invalid credentials'), err ); return; }
 
-		request.cookie.set( 'authtoken', User.token, response )
+		request.cookie.set( 'authtoken', User.token, response );
 		callback( null, null, { authtoken: User.token } );
 	});
 }
