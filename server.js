@@ -21,7 +21,7 @@ files.forEach(function( file ){
 
 function serverBody( request, response ){
 
-	var uri = url.parse( request.url ),
+	var uri = url.parse( request.url, true ),
 		postData = '';
 
 	// Parse the pathname into our route
@@ -60,9 +60,17 @@ function serverBody( request, response ){
 		postData += postDataChunk;
 	});
 	request.addListener('end', function(){
+		var data = {};
 
-		// Use post data if we have some
-		var data = querystring.parse( postData );
+		// Use get data for a get request
+		if ( request.method == 'GET' ){
+			data = uri.query;
+		}
+
+		// Otherwise use the post data
+		else {
+			data = querystring.parse( postData );
+		}
 
 		// Use authtoken from the cookie if we don't have one in the post
 		if ( ! data.authtoken ){
