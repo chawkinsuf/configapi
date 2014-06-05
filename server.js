@@ -21,7 +21,7 @@ files.forEach(function( file ){
 
 function serverBody( request, response ){
 
-	var uri = url.parse( request.url, true ),
+	var uri = url.parse( request.url ),
 		postData = '';
 
 	// Parse the pathname into our route
@@ -33,7 +33,7 @@ function serverBody( request, response ){
 
 	// Set our route vars since we have a valid path
 	var route = found[1],
-		subroute = found[2];
+		urlparam = found[2];
 
 	// See if we have a valid route
 	if ( ! routes[ route ] || ! routes[ route ][ request.method ] ){
@@ -61,19 +61,16 @@ function serverBody( request, response ){
 	});
 	request.addListener('end', function(){
 
-		var data = {};
-
 		// Use post data if we have some
-		if ( postData !== '' ){
-			data = querystring.parse( postData );
-		} else {
-			data = uri.query;
-		}
+		var data = querystring.parse( postData );
 
-		// Use authtoken from the cookie if we don't have one
-		if ( ! data.authtoken && authtoken !== null ){
+		// Use authtoken from the cookie if we don't have one in the post
+		if ( ! data.authtoken ){
 			data.authtoken = authtoken;
 		}
+
+		// Add our url parameter to the data
+		data.urlparam = urlparam;
 
 		// Process the route
 		routes[ route ][ request.method ]( request, response, data, function( err, errInternal, json ){
