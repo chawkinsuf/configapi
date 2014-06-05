@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `users` (
 --
 
 INSERT INTO `users` (`id`, `email`, `key`, `salt`, `token`) VALUES
-(1, 'name@company.com', 'kKbCCGNEucVhMn+Odg6A+QI0r2a5s/Ct3sTFe6sTvPfA9os+YXAZuhOh5VZaz6Pv89p18YqpNwwK6JTPLZlQZg==', '5O8KK0leLMqVwZPR/7oAGSSnYokY6bgcfehcNL8IuhU=', '8a8607cbc84797ac5a21183fc8377ae73a56206a');
+(1, 'name@company.com', 'kKbCCGNEucVhMn+Odg6A+QI0r2a5s/Ct3sTFe6sTvPfA9os+YXAZuhOh5VZaz6Pv89p18YqpNwwK6JTPLZlQZg==', '5O8KK0leLMqVwZPR/7oAGSSnYokY6bgcfehcNL8IuhU=', NULL);
 
 --
 -- Indexes for dumped tables
