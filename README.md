@@ -32,22 +32,22 @@ When the user is authenticated, the token will be returned in the response and a
 
 The default password in the demo sql is: `test`.
 
-- POST /login : Login to the system
-  - email : The user's email address
-  - password : The user's password
-- GET /logout : Logout of the system
+- `POST /login` : Login to the system
+  - `email` : The user's email address
+  - `password` : The user's password
+- `GET /logout` : Logout of the system
 
 ### Searching
 This application is designed to list and manage a set of configurations. The standard REST operations apply.
 
-- GET /config/name : List the configuration with the specified name
-- GET /config : List all the configurations stored in the system
-  - order : The field used to sort the list (name, hostname, port, username)
-  - direction : The direction of the sort (asc, desc)
-  - limit : The number of results to return
-  - page : The page of results based on the limit, starting at 1
-- POST /config : Insert a new configuration
+- `GET /config/name` : List the configuration with the specified name
+- `GET /config` : List all the configurations stored in the system
+  - `order` : The field used to sort the list (name, hostname, port, username)
+  - `direction` : The direction of the sort (asc, desc)
+  - `limit` : The number of results to return
+  - `page` : The page of results based on the limit, starting at 1
+- `POST /config` : Insert a new configuration
   - All fields must be supplied (name, hostname, port, username)
-- PUT /config/name : Update the configuration with the specified name
+- `PUT /config/name` : Update the configuration with the specified name
   - At least one field must be set (name, hostname, port, username)
-- DELETE /config/name : Delete the configuration with the specified name
+- `DELETE /config/name` : Delete the configuration with the specified name
