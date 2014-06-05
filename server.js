@@ -25,7 +25,7 @@ function serverBody( request, response ){
 		postData = '';
 
 	// Parse the pathname into our route
-	var found = uri.pathname.match( /^\/(\w+)(?:$|\/(\w+))/ );
+	var found = uri.pathname.match( /^\/(\w+)(?:\/?$|\/(\w+)\/?)/ );
 	if ( ! found ){
 		serverutil.errorResponse( 404, new Error('Path not found'), null, request, response );
 		return;
