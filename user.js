@@ -13,11 +13,11 @@ User.prototype._init = function( data ){
 		this.salt  = null;
 		this.token = null;
 	} else {
-		this.id    = data.id;
-		this.email = data.email;
-		this.key   = data.key;
-		this.salt  = data.salt;
-		this.token = data.token;
+		this.id    = data.id    || 0;
+		this.email = data.email || null;
+		this.key   = data.key   || null;
+		this.salt  = data.salt  || null;
+		this.token = data.token || null;
 	}
 };
 

@@ -20,11 +20,11 @@ Config.prototype._init = function( data ){
 		this.port     = null;
 		this.username = null;
 	} else {
-		this.id       = data.id;
-		this.name     = data.name;
-		this.hostname = data.hostname;
-		this.port     = data.port;
-		this.username = data.username;
+		this.id       = data.id       || 0;
+		this.name     = data.name     || null;
+		this.hostname = data.hostname || null;
+		this.port     = data.port     || null;
+		this.username = data.username || null;
 	}
 };
 
