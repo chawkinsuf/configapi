@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>Configapi Test Page</title>
+
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
+	<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css" rel="stylesheet">
+
+	<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+
+	<style type="text/css">
+		body { margin:0 20px }
+		form { float:left; width:500px; margin:10px; padding:10px; border:1px dashed #cccccc }
+		.response { display:inline-block; min-width:400px; height:200px; overflow-y:auto  }
+	</style>
+
+	<script type="text/javascript">
+		$(function(){
+			$('form').submit(function( event ){
+				event.preventDefault();
+				var form = $(this);
+				var url = form.attr('action');
+				var urlname = form.find('input[name=urlname]');
+
+				if ( urlname.length ){
+					if ( urlname.val() == '' ){
+						form.find('.response').text('Error: You must specify a name');
+						return;
+					}
+					url += '/' + urlname.val();
+				}
+
+				$.ajax({
+					url: url,
+					type: form.attr('method'),
+					data: form.serialize()
+				})
+				.done(function( data, textStatus, jqXHR ){
+					form.find('.response').text( JSON.stringify( data, null, 2 ) );
+				})
+				.fail(function( jqXHR, textStatus, errorThrown ){
+					form.find('.response').text( jqXHR.responseText );
+				});
+			});
+		});
+	</script>
+</head>
+
+<body>
+
+<form class="form-inline" method="post" action="http://localhost:8080/login">
+<h3>Login</h3>
+<input class="form-control" type="text" name="email" placeholder="Email address">
+<input class="form-control" type="password" name="password" placeholder="Password">
+<button type="submit" class="btn btn-default">Login</button>
+<h4>Response</h4>
+<pre class="response"></pre>
+</form>
+
+<form class="form-inline" method="get" action="http://localhost:8080/logout">
+<h3>Logout</h3>
+<button type="submit" class="btn btn-default">Logout</button>
+<h4>Response</h4>
+<pre class="response"></pre>
+</form>
+
+<form class="form-inline" method="get" action="http://localhost:8080/config">
+<h3>List Configurations</h3>
+<input class="form-control" type="text" name="order" placeholder="Order">
+<input class="form-control" type="text" name="direction" placeholder="Direction">
+<input class="form-control" type="text" name="limit" placeholder="Limit">
+<input class="form-control" type="text" name="page" placeholder="Page">
+<button type="submit" class="btn btn-default">List</button>
+<h4>Response</h4>
+<pre class="response"></pre>
+</form>
+
+<form class="form-inline" method="put" action="http://localhost:8080/config">
+<h3>Update Configuration <input class="form-control" type="text" name="urlname" placeholder="Name"></h3>
+<input class="form-control" type="text" name="name" placeholder="Update Name">
+<input class="form-control" type="text" name="hostname" placeholder="Update Hostname">
+<input class="form-control" type="text" name="port" placeholder="Update Port">
+<input class="form-control" type="text" name="username" placeholder="Update Username">
+<button type="submit" class="btn btn-default">Update</button>
+<h4>Response</h4>
+<pre class="response"></pre>
+</form>
+
+<form class="form-inline" method="delete" action="http://localhost:8080/config">
+<h3>Delete Configuration <input class="form-control" type="text" name="urlname" placeholder="Name"></h3>
+<button type="submit" class="btn btn-default">Delete</button>
+<h4>Response</h4>
+<pre class="response"></pre>
+</form>
+
+<form class="form-inline" method="post" action="http://localhost:8080/config">
+<h3>Insert Configuration <input class="form-control" type="text" name="urlname" placeholder="Name"></h3>
+<input class="form-control" type="text" name="name" placeholder="Insert Name">
+<input class="form-control" type="text" name="hostname" placeholder="Insert Hostname">
+<input class="form-control" type="text" name="port" placeholder="Insert Port">
+<input class="form-control" type="text" name="username" placeholder="Insert Username">
+<button type="submit" class="btn btn-default">Insert</button>
+<h4>Response</h4>
+<pre class="response"></pre>
+</form>
+
+<form class="form-inline" method="get" action="http://localhost:8080/config">
+<h3>Get Configuration <input class="form-control" type="text" name="urlname" placeholder="Name"></h3>
+<button type="submit" class="btn btn-default">Get</button>
+<h4>Response</h4>
+<pre class="response"></pre>
+</form>
+
+</body>
+</html>
