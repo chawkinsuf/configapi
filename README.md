@@ -51,3 +51,6 @@ This application is designed to list and manage a set of configurations. The sta
 - `PUT /config/name` : Update the configuration with the specified name
   - At least one field must be set (name, hostname, port, username)
 - `DELETE /config/name` : Delete the configuration with the specified name
+
+### Testing
+There is a special route that is hardcoded to `/test`. This route will load the test.html page found in the project. It contains a simple page that uses ajax calls to test all the possible actions that can be performed in the API. Note this will override any handlers you might wish to call `test`.

@@ -35,6 +35,23 @@ function serverBody( request, response ){
 	var route = found[1],
 		urlparam = found[2];
 
+	// Custom handling to server our test page
+	if ( route == 'test' ){
+		fs.readFile( 'test.html', 'binary', function( err, file ){
+			if( err ){
+				response.writeHead( 500, {'Content-Type': 'text/plain'} );
+				response.write( err );
+				response.end();
+				return;
+			}
+
+			response.writeHead( 200, {'Content-Type': 'text/html'} );
+			response.write( file, 'binary' );
+			response.end();
+		});
+		return;
+	}
+
 	// See if we have a valid route
 	if ( ! routes[ route ] || ! routes[ route ][ request.method ] ){
 		serverutil.errorResponse( 404, new Error('Path not found'), null, request, response );
@@ -53,6 +70,9 @@ function serverBody( request, response ){
 	// Look for an auth cookie and store the cookie object in the request
 	request.cookie = new cookie.Cookie();
 	var authtoken = request.cookie.get( 'authtoken', request );
+
+	// Allow cross site scripting for testing
+	response.setHeader( 'Access-Control-Allow-Origin', '*' );
 
 	// Setup request even listers
 	request.setEncoding('utf8');
