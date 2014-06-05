@@ -119,13 +119,13 @@ function PUT( request, response, data, callback ){
 				}
 
 				// Validate the name
-				if ( ! /^\w+$/.test( data.name ) ){
+				if ( data.name && ! /^\w+$/.test( data.name ) ){
 					callback( new Error('Invalid name') );
 					return;
 				}
 
 				// Validate the port
-				if ( ! /^\d+$/.test( data.port ) ){
+				if ( data.port && ! /^\d+$/.test( data.port ) ){
 					callback( new Error('Invalid port') );
 					return;
 				}
