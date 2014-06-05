@@ -44,8 +44,8 @@ This application is designed to list and manage a set of configurations. The sta
 - `GET /config` : List all the configurations stored in the system
   - `order` : The field used to sort the list (name, hostname, port, username)
   - `direction` : The direction of the sort (asc, desc)
-  - `limit` : The number of results to return
-  - `page` : The page of results based on the limit, starting at 1
+  - `limit` : The number of results to return (defaults to 10)
+  - `page` : The page of results based on the limit, starting at 1 (defaults to 1)
 - `POST /config` : Insert a new configuration
   - All fields must be supplied (name, hostname, port, username)
 - `PUT /config/name` : Update the configuration with the specified name

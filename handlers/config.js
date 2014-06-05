@@ -41,7 +41,7 @@ function GET( request, response, data, callback ){
 		}
 
 		// Check for limit parameters and make sure we have integers
-		var limits = null;
+		var limits = [ 0, 10 ];
 		data.limit = config.checkLimitValue( data.limit );
 		if ( data.limit ){
 			data.page = config.checkLimitValue( data.page );
